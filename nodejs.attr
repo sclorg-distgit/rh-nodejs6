@@ -1,0 +1,3 @@
+%__nodejs6_provides  %{_rpmconfigdir}/nodejs6.prov
+%__nodejs6_requires  %{_rpmconfigdir}/nodejs6.req
+%__nodejs6_path  /usr/lib.*/node_modules/.*/package\\.json$
