@@ -14,7 +14,7 @@
 Summary: %scl Software Collection
 Name: %scl_name
 Version: 2.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 Source1: macros.nodejs
 Source2: nodejs.attr
@@ -95,8 +95,10 @@ export PATH=%{_bindir}\${PATH:+:\${PATH}}
 export LD_LIBRARY_PATH=%{_libdir}\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}
 export PYTHONPATH=%{_scl_root}%{python_sitelib}\${PYTHONPATH:+:\${PYTHONPATH}}
 export MANPATH=%{_mandir}:\$MANPATH
-#. scl_source enable v8314
-# new nodejs bundles v8
+# enable devtoolset if it's installed (RHBZ#1362169)
+if scl -l | grep devtoolset-4 &> /dev/null; then
+. scl_source enable devtoolset-4
+fi
 EOF
 
 # install rpm magic
@@ -171,6 +173,9 @@ install -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/%{scl_name}.7
 %{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel
 
 %changelog
+* Tue Jan 31 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 2.4-5
+- Enable dts if it is installed for node-gyp
+
 * Thu Jan 26 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 2.4-4
 - Install main package set
 
