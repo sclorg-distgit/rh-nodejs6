@@ -14,7 +14,7 @@
 Summary: %scl Software Collection
 Name: %scl_name
 Version: 2.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 Source1: macros.nodejs
 Source2: nodejs.attr
@@ -146,6 +146,9 @@ mkdir -p %{buildroot}%{_libdir}/pkgconfig
 mkdir -p %{buildroot}%{_mandir}/man7/
 install -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/%{scl_name}.7
 
+# own license dir (RHBZ#1420294)
+mkdir -p %{buildroot}%{_datadir}/licenses/
+
 %files
 
 %files -f filesystem runtime
@@ -156,6 +159,7 @@ install -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/%{scl_name}.7
 %dir %{_scl_root}%{python_sitelib}
 %dir %{_scl_root}/usr/lib/python2.7
 %dir %{_libdir}/pkgconfig
+%dir %{_datadir}/licenses
 %{_datadir}/node/multiver_modules
 %{_mandir}/man7/%{scl_name}.*
 %dir %{_datadir}/node
@@ -170,6 +174,9 @@ install -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/%{scl_name}.7
 %{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel
 
 %changelog
+* Thu Feb 16 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 2.4-5
+- Own %%{_licensedir} ((RHBZ#1420294))
+
 * Fri Jan 27 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 2.4-4
 - Enable installing main package set
 
